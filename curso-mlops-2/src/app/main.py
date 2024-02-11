@@ -5,7 +5,7 @@ from flask_basicauth import BasicAuth
 import pickle
 import os
 
-model = pickle.load(open('models\modelo_casa.sav', 'rb'))
+model = pickle.load(open('models/modelo_casa.sav', 'rb'))
 colunas = ['tamanho', 'ano', 'garagem']
 
 app = Flask(__name__)
