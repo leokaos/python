@@ -1,0 +1,49 @@
+<!-- file-upload.component.html -->
+<div class="upload-container">
+    <div class="file-selection">
+        <input
+               id="fileInput"
+               type="file"
+               (change)="onFileSelect($event)">
+        <button (click)="resetSelection()" [disabled]="!selectedFiles">Limpar</button>
+    </div>
+
+    <div *ngIf="selectedFiles" class="file-info">
+        <p>Arquivo(s) selecionado(s):</p>
+        <ul>
+            <li *ngFor="let file of selectedFiles | keyvalue">{{file.value}}</li>
+        </ul>
+    </div>
+
+    <div class="actions">
+        <button (click)="uploadToSelectedEndpoint()">
+            Enviar para endpoint selecionado
+        </button>
+    </div>
+
+    <div *ngIf="galleriaInitialized">
+        <p-galleria [value]="images"
+                    [responsiveOptions]="responsiveOptions"
+                    [numVisible]="5"
+                    [circular]="true"
+                    [autoPlay]="false">
+
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc"
+                     [alt]="item.filterName"
+                     style="width: 100%; max-height: 500px; object-fit: contain" />
+            </ng-template>
+
+            <ng-template pTemplate="thumbnail" let-item>
+                <img [src]="item.thumbnailImageSrc"
+                     [alt]="item.filterName"
+                     style="width: 80px; height: 60px; object-fit: cover" />
+            </ng-template>
+        </p-galleria>
+    </div>
+
+    <div *ngIf="!galleriaInitialized && images.length === 0">
+        <p>Processando primeira imagem...</p>
+    </div>
+
+</div>
